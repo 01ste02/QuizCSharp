@@ -67,14 +67,13 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblAnswer);
             this.Controls.Add(this.lblQuestion);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "QuestionPopup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "QuestionPopup";
+            this.Text = "Fråga";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.QuestionPopup_Load);
+            this.ResizeEnd += new System.EventHandler(this.QuestionPopup_ResizeEnd);
             this.ResumeLayout(false);
 
         }

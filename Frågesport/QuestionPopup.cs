@@ -88,5 +88,41 @@ namespace Frågesport
             }
             clickIndex++;
         }
+
+        private void QuestionPopup_ResizeEnd (object sender, EventArgs e)
+        {
+            if (clickIndex > 0)
+            {
+                lblQuestion.Height = (int)(0.6 * this.Height);
+                lblQuestion.Width = this.Width;
+                lblAnswer.Location = new Point(0, lblQuestion.Height);
+                lblAnswer.Height = (int)(0.4 * this.Height);
+                lblAnswer.Width = this.Width;
+
+                string fontName = "Stencil";
+
+                int fontSize1 = fontHelper.FontSizeString(lblQuestion.Text, fontName, lblQuestion.Width, lblQuestion.Height, this.CreateGraphics());
+                lblQuestion.Font = new Font(fontName, fontSize1);
+                lblQuestion.TextAlign = ContentAlignment.MiddleCenter;
+
+                int fontSize2 = fontHelper.FontSizeString(lblAnswer.Text, fontName, lblAnswer.Width, lblAnswer.Height, this.CreateGraphics());
+                lblAnswer.Font = new Font(fontName, fontSize2);
+            }
+            else
+            {
+                lblQuestion.Height = this.Height;
+                lblQuestion.Width = this.Width;
+                lblAnswer.Width = this.Width;
+
+                string fontName = "Stencil";
+
+                int fontSize1 = fontHelper.FontSizeString(lblQuestion.Text, fontName, lblQuestion.Width, lblQuestion.Height, this.CreateGraphics());
+                lblQuestion.Font = new Font(fontName, fontSize1);
+                lblQuestion.TextAlign = ContentAlignment.MiddleCenter;
+
+                int fontSize2 = fontHelper.FontSizeString(lblAnswer.Text, fontName, lblAnswer.Width, lblAnswer.Height, this.CreateGraphics());
+                lblAnswer.Font = new Font(fontName, fontSize2);
+            }
+        }
     }
 }

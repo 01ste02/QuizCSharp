@@ -25,6 +25,11 @@ namespace Frågesport
         private int numTeams = 0;
         private Team[] teams;
         private int maxPoints = 0;
+        private Label[] pointLabels;
+        private Button[,] pointButtons;
+        private GroupBox[] pointGroupBoxes;
+
+        private FontHelper fontHelper = new FontHelper();
 
         public AwardPoints (int maxPoint, int teamNum, Team[] teams)
         {
@@ -59,6 +64,11 @@ namespace Frågesport
 
             int row = 0;
             int column = 0;
+
+            pointGroupBoxes = new GroupBox[numTeams];
+            pointLabels = new Label[numTeams];
+            pointButtons = new Button[numTeams, 6];
+
             for(int i = 0; i < numTeams; i++)
             {
                 GroupBox gbx = new GroupBox();
@@ -70,7 +80,8 @@ namespace Frågesport
                 gbx.Location = new Point(10 * (column + 1) + column * gbx.Width, 10 + row * gbx.Height);
                 gbx.BackColor = Color.LemonChiffon;
 
-                this.Controls[0].Controls.Add(gbx);
+                pointGroupBoxes[i] = gbx;
+                this.Controls[1].Controls.Add(gbx);
 
                 Label lbl = new Label();
                 lbl.Name = "lblTeam" + (i + 1);
@@ -81,7 +92,8 @@ namespace Frågesport
                 lbl.Width = gbx.Width - 8;
                 lbl.Height = (gbx.Height - 30) / 2;
 
-                this.Controls[0].Controls[i].Controls.Add(lbl);
+                pointLabels[i] = lbl;
+                this.Controls[1].Controls[i].Controls.Add(lbl);
 
                 Button btn1 = new Button();
                 btn1.Name = "btnTeam" + (i + 1) + "Remove1";
@@ -152,12 +164,30 @@ namespace Frågesport
                     }
                 }
 
-                this.Controls[0].Controls[i].Controls.Add(btn1);
-                this.Controls[0].Controls[i].Controls.Add(btn2);
-                this.Controls[0].Controls[i].Controls.Add(btn3);
-                this.Controls[0].Controls[i].Controls.Add(btn4);
-                this.Controls[0].Controls[i].Controls.Add(btn5);
-                this.Controls[0].Controls[i].Controls.Add(btn6);
+
+                pointButtons[i, 0] = btn1;
+                pointButtons[i, 1] = btn2;
+                pointButtons[i, 2] = btn3;
+                pointButtons[i, 3] = btn4;
+                pointButtons[i, 4] = btn5;
+                pointButtons[i, 5] = btn6;
+                this.Controls[1].Controls[i].Controls.Add(btn1);
+                this.Controls[1].Controls[i].Controls.Add(btn2);
+                this.Controls[1].Controls[i].Controls.Add(btn3);
+                this.Controls[1].Controls[i].Controls.Add(btn4);
+                this.Controls[1].Controls[i].Controls.Add(btn5);
+                this.Controls[1].Controls[i].Controls.Add(btn6);
+
+                int fontSizeLbl = fontHelper.FontSizeString(lbl.Text, "Stencil", lbl.Width, lbl.Height, this.CreateGraphics());
+                int fontSizeBtn = fontHelper.FontSizeString(pointButtons[i, 0].Text, "Stencil", pointButtons[i, 0].Width, pointButtons[i, 0].Height, this.CreateGraphics()) / 2;
+
+                lbl.Font = new Font("Stencil", fontSizeLbl);
+                pointButtons[i, 0].Font = new Font("Stencil", fontSizeBtn);
+                pointButtons[i, 1].Font = new Font("Stencil", fontSizeBtn);
+                pointButtons[i, 2].Font = new Font("Stencil", fontSizeBtn);
+                pointButtons[i, 3].Font = new Font("Stencil", fontSizeBtn);
+                pointButtons[i, 4].Font = new Font("Stencil", fontSizeBtn);
+                pointButtons[i, 5].Font = new Font("Stencil", fontSizeBtn);
 
                 column++;
 
@@ -192,40 +222,127 @@ namespace Frågesport
                     {
                         teams[i].Score += -1;
                         MessageBox.Show(this, "1 Poäng borttaget från lag " + teams[i].TeamName, "Poäng borttaget", MessageBoxButtons.OK);
-                        this.Close();
                     }
                     else if (btn.Name.Contains("Add1"))
                     {
                         teams[i].Score += +1;
                         MessageBox.Show(this, "En poäng tillagt till lag " + teams[i].TeamName, "Poäng tillagt", MessageBoxButtons.OK);
-                        this.Close();
                     }
                     else if (btn.Name.Contains("Add2"))
                     {
                         teams[i].Score += +2;
                         MessageBox.Show(this, "Två poäng tillagda till lag " + teams[i].TeamName, "Poäng tillagda", MessageBoxButtons.OK);
-                        this.Close();
                     }
                     else if (btn.Name.Contains("Add3"))
                     {
                         teams[i].Score += +3;
                         MessageBox.Show(this, "Tre poäng tillagda till lag " + teams[i].TeamName, "Poäng tillagda", MessageBoxButtons.OK);
-                        this.Close();
                     }
                     else if (btn.Name.Contains("Add4"))
                     {
                         teams[i].Score += +4;
                         MessageBox.Show(this, "Fyra poäng tillagda till lag " + teams[i].TeamName, "Poäng tillagda", MessageBoxButtons.OK);
-                        this.Close();
                     }
                     else if (btn.Name.Contains("Add5"))
                     {
                         teams[i].Score += +5;
                         MessageBox.Show(this, "Fem poäng tillagda till lag " + teams[i].TeamName, "Poäng tillagda", MessageBoxButtons.OK);
-                        this.Close();
                     }
                 }
             }
+        }
+
+        private void AwardPoints_ResizeEnd (object sender, EventArgs e)
+        {
+            int numWide = 0;
+            int numHigh = 0;
+
+            if (numTeams <= 3)
+            {
+                numHigh = 1;
+                numWide = numTeams;
+            }
+            else if (numTeams > 3 && numTeams <= 6)
+            {
+                numHigh = 2;
+                numWide = 3;
+            }
+            else if (numTeams > 6 && numTeams <= 9)
+            {
+                numHigh = 3;
+                numWide = 3;
+            }
+
+            int row = 0;
+            int column = 0;
+            for (int i = 0; i < numTeams; i++)
+            {
+                GroupBox gbx = pointGroupBoxes[i];
+                gbx.Width = (gbxMain.Width / numWide) - 20;
+                gbx.Height = (gbxMain.Height / numHigh) - 20;
+                gbx.Location = new Point(10 * (column + 1) + column * gbx.Width, 10 + row * gbx.Height);
+
+                Label lbl = pointLabels[i];
+
+                lbl.Location = new Point(4, 30);
+                lbl.Width = gbx.Width - 8;
+                lbl.Height = (gbx.Height - 30) / 2;
+
+                pointButtons[i, 0].Width = (gbx.Width - 40) / 3;
+                pointButtons[i, 1].Width = (gbx.Width - 40) / 3;
+                pointButtons[i, 2].Width = (gbx.Width - 40) / 3;
+                pointButtons[i, 3].Width = (gbx.Width - 40) / 3;
+                pointButtons[i, 4].Width = (gbx.Width - 40) / 3;
+                pointButtons[i, 5].Width = (gbx.Width - 40) / 3;
+
+                pointButtons[i, 0].Height = (((gbx.Height - 40) / 2) - 20) / 2;
+                pointButtons[i, 1].Height = (((gbx.Height - 40) / 2) - 20) / 2;
+                pointButtons[i, 2].Height = (((gbx.Height - 40) / 2) - 20) / 2;
+                pointButtons[i, 3].Height = (((gbx.Height - 40) / 2) - 20) / 2;
+                pointButtons[i, 4].Height = (((gbx.Height - 40) / 2) - 20) / 2;
+                pointButtons[i, 5].Height = (((gbx.Height - 40) / 2) - 20) / 2;
+
+                pointButtons[i, 0].Location = new Point(10, lbl.Location.Y + lbl.Height + 10);
+                pointButtons[i, 1].Location = new Point(20 + pointButtons[i, 0].Width, lbl.Location.Y + lbl.Height + 10);
+                pointButtons[i, 2].Location = new Point(30 + pointButtons[i, 0].Width * 2, lbl.Location.Y + lbl.Height + 10);
+                pointButtons[i, 3].Location = new Point(10, lbl.Location.Y + lbl.Height + 20 + pointButtons[i, 0].Height);
+                pointButtons[i, 4].Location = new Point(20 + pointButtons[i, 0].Width, lbl.Location.Y + lbl.Height + 20 + pointButtons[i, 0].Height);
+                pointButtons[i, 5].Location = new Point(30 + pointButtons[i, 0].Width * 2, lbl.Location.Y + lbl.Height + 20 + pointButtons[i, 0].Height);
+
+                int fontSizeLbl = fontHelper.FontSizeString(lbl.Text, "Stencil", lbl.Width, lbl.Height, this.CreateGraphics());
+                int fontSizeBtn = fontHelper.FontSizeString(pointButtons[i, 0].Text, "Stencil", pointButtons[i, 0].Width, pointButtons[i, 0].Height, this.CreateGraphics()) / 2;
+
+                lbl.Font = new Font("Stencil", fontSizeLbl);
+                pointButtons[i, 0].Font = new Font("Stencil", fontSizeBtn);
+                pointButtons[i, 1].Font = new Font("Stencil", fontSizeBtn);
+                pointButtons[i, 2].Font = new Font("Stencil", fontSizeBtn);
+                pointButtons[i, 3].Font = new Font("Stencil", fontSizeBtn);
+                pointButtons[i, 4].Font = new Font("Stencil", fontSizeBtn);
+                pointButtons[i, 5].Font = new Font("Stencil", fontSizeBtn);
+
+                column++;
+
+                if (i == 2)
+                {
+                    row++;
+                    column = 0;
+                }
+                if (i == 5)
+                {
+                    row++;
+                    column = 0;
+                }
+            }
+
+            //int fontSizeBtn1 = fontHelper.FontSizeString(btnDone.Text, "Stencil", btnDone.Width, btnDone.Height, this.CreateGraphics()); //Unnessecary
+            //btnDone.Font = new Font("Stencil", fontSizeBtn1);
+
+            Invalidate();
+        }
+
+        private void btnDone_Click (object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
