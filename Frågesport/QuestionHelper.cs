@@ -10,116 +10,149 @@ namespace Frågesport
     {
 
     }
-        // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
+
+    // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "test")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "test", IsNullable = false)]
+    public partial class quiz
+    {
+
+        private quizCategory[] categoryField;
+
         /// <remarks/>
-        [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "test")]
-        [System.Xml.Serialization.XmlRootAttribute(Namespace = "test", IsNullable = false)]
-        public partial class quiz
+        [System.Xml.Serialization.XmlElementAttribute("category")]
+        public quizCategory[] category
         {
-
-            private quizCategory[] categoryField;
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlElementAttribute("category")]
-            public quizCategory[] category
+            get
             {
-                get
-                {
-                    return this.categoryField;
-                }
-                set
-                {
-                    this.categoryField = value;
-                }
+                return this.categoryField;
+            }
+            set
+            {
+                this.categoryField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "test")]
+    public partial class quizCategory
+    {
+
+        private string nameField;
+
+        private quizCategoryQuestion[] questionField;
+
+        /// <remarks/>
+        public string name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
             }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "test")]
-        public partial class quizCategory
+        [System.Xml.Serialization.XmlElementAttribute("question")]
+        public quizCategoryQuestion[] question
         {
-
-            private string nameField;
-
-            private quizCategoryQuestion[] questionField;
-
-            /// <remarks/>
-            public string name
+            get
             {
-                get
-                {
-                    return this.nameField;
-                }
-                set
-                {
-                    this.nameField = value;
-                }
+                return this.questionField;
             }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlElementAttribute("question")]
-            public quizCategoryQuestion[] question
+            set
             {
-                get
-                {
-                    return this.questionField;
-                }
-                set
-                {
-                    this.questionField = value;
-                }
+                this.questionField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "test")]
+    public partial class quizCategoryQuestion
+    {
+
+        private string textField;
+
+        private string answerField;
+
+        private string typeField;
+
+        private string mediaFileField;
+
+        private byte pointField;
+
+        /// <remarks/>
+        public string text
+        {
+            get
+            {
+                return this.textField;
+            }
+            set
+            {
+                this.textField = value;
             }
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "test")]
-        public partial class quizCategoryQuestion
+        public string answer
         {
-
-            private string textField;
-
-            private string answerField;
-
-            private byte pointField;
-
-            /// <remarks/>
-            public string text
+            get
             {
-                get
-                {
-                    return this.textField;
-                }
-                set
-                {
-                    this.textField = value;
-                }
+                return this.answerField;
             }
-
-            /// <remarks/>
-            public string answer
+            set
             {
-                get
-                {
-                    return this.answerField;
-                }
-                set
-                {
-                    this.answerField = value;
-                }
-            }
-
-            /// <remarks/>
-            [System.Xml.Serialization.XmlAttributeAttribute()]
-            public byte point
-            {
-                get
-                {
-                    return this.pointField;
-                }
-                set
-                {
-                    this.pointField = value;
-                }
+                this.answerField = value;
             }
         }
+
+        /// <remarks/>
+        public string type
+        {
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                this.typeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string mediaFile
+        {
+            get
+            {
+                return this.mediaFileField;
+            }
+            set
+            {
+                this.mediaFileField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte point
+        {
+            get
+            {
+                return this.pointField;
+            }
+            set
+            {
+                this.pointField = value;
+            }
+        }
+    }
+
+
 }

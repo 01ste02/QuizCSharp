@@ -34,10 +34,10 @@ namespace Frågesport
             int fittedChars = 0;
             int linesFilled = 0;
 
-            while (fittedChars < categoryLabels[longestIndex].Text.Length)
+            while (fittedChars < categoryLabels[longestIndex].Text.Length || linesFilled > 1)
             {
                 g.MeasureString(categoryLabels[longestIndex].Text, new Font(fontName, fontSize), size, StringFormat.GenericDefault, out fittedChars, out linesFilled);
-                fontSize -= 5;
+                fontSize -= 3;
             }
 
             return fontSize;
@@ -48,11 +48,12 @@ namespace Frågesport
             SizeF size = new SizeF(width, height);
             int fontSize = 100;
             int fittedChars = 0;
+            int linesFilled = 0;
 
-            while (fittedChars < text.Length)
+            while (fittedChars < text.Length || linesFilled > 1)
             {
-                g.MeasureString(text, new Font(fontName, fontSize), size, StringFormat.GenericDefault, out fittedChars, out int linesFilled);
-                fontSize -= 5;
+                g.MeasureString(text, new Font(fontName, fontSize), size, StringFormat.GenericDefault, out fittedChars, out linesFilled);
+                fontSize -= 1;
             }
 
             return fontSize;

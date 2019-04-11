@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Frågesport
 {
@@ -22,7 +23,6 @@ namespace Frågesport
         public Menu ()
         {
             InitializeComponent();
-            
         }
 
         private void btnAdd_Click (object sender, EventArgs e)
@@ -101,9 +101,37 @@ namespace Frågesport
                     teams[i] = new Team(teamNames[i].Text);
                 }
 
-                QuizForm quiz = new QuizForm(teams);
-                quiz.Show();
-                this.Hide();
+                FolderBrowserDialog rootFolderBrowserDialog = new FolderBrowserDialog();
+                rootFolderBrowserDialog.Description = "Välj rotmapp för frågor och media";
+                rootFolderBrowserDialog.ShowNewFolderButton = false;
+                rootFolderBrowserDialog.SelectedPath = Directory.GetCurrentDirectory(); ;
+
+                if (rootFolderBrowserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    OpenFileDialog questionFileDialog = new OpenFileDialog();
+                    questionFileDialog.Title = "Välj en fil som innehåller frågor";
+                    questionFileDialog.DefaultExt = "xml";
+                    questionFileDialog.CheckFileExists = true;
+                    questionFileDialog.InitialDirectory = rootFolderBrowserDialog.SelectedPath;
+                    questionFileDialog.Multiselect = false;
+                    questionFileDialog.Filter = "xml files (*.xml)|*.xml";
+                    questionFileDialog.FilterIndex = 0;
+
+                    if (questionFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        QuizForm quiz = new QuizForm(teams, rootFolderBrowserDialog.SelectedPath, questionFileDialog.FileName);
+                        quiz.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show(this, "Du måste välja en giltig frågefil", "Frågefilsfel", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(this, "Du måste välja en giltig rotmapp", "Rotmappsfel", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                }
             }
             else
             {

@@ -28,15 +28,20 @@ namespace Frågesport
         public GroupBox[] scoreGroupBoxes;
         public Label[] teamScoreLabels;
 
-        public QuizForm (Team[] teams)
+        private string rootDirectory;
+        private string questionFile;
+
+        public QuizForm (Team[] teams, string rootDirectory, string questionFile)
         {
             this.teams = teams;
+            this.rootDirectory = rootDirectory;
+            this.questionFile = questionFile;
             InitializeComponent();
         }
 
         public void Startup()
         {
-            quiz = DeserializeQuiz(@"C: \Users\Oskar\Source\repos\Frågesport\Frågesport\Questions.xml");
+            quiz = DeserializeQuiz(Path.Combine(rootDirectory, questionFile));
 
             PopulateFields();
             PopulateTeams(teams);
@@ -47,9 +52,18 @@ namespace Frågesport
         {
             XmlSerializer serializer = new XmlSerializer(typeof(quiz));
 
-            quiz i;
+            quiz i = null;
             Stream reader = new FileStream(filename, FileMode.Open);
-            i = (quiz)serializer.Deserialize(reader);
+
+            try
+            {
+                i = (quiz)serializer.Deserialize(reader);
+            }
+            catch
+            {
+                MessageBox.Show(this, "Det skedde ett fel då frågefilen lästes in. Var god försök igen.", "Frågefilsfel", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Environment.Exit(2);
+            }
             return i;
         }
 
@@ -72,6 +86,7 @@ namespace Frågesport
             for (int i = 0; i < scoreGroupBoxes.Length; i++)
             {
                 sizeHelper.SizeScoreGbx(this.Controls[0].Width, scoreGroupBoxes.Length, i, scoreGroupBoxes[i]);
+                scoreGroupBoxes[i].Height = this.Controls[0].Height;
             }
 
             for (int i = 0; i < teamScoreLabels.Length; i++)
@@ -99,7 +114,7 @@ namespace Frågesport
                 fontHelper.SetFont(fontName, fontSize2, scoreLabels[i]);
             }
 
-            int fontSize3 = fontHelper.FontSizeString("AAAAAAAAAAAAAA", fontName, teamScoreLabels[0].Width / 2, teamScoreLabels[0].Height, this.CreateGraphics());
+            int fontSize3 = fontHelper.FontSizeString("AAAAAAAAAAAAAAAAAAA", fontName, teamScoreLabels[0].Width / 2, (int)(teamScoreLabels[0].Height / 3), this.CreateGraphics());
             for (int i = 0; i < teamScoreLabels.Length; i++)
             {
                 fontHelper.SetFont(fontName, fontSize3, teamScoreLabels[i]);
@@ -127,7 +142,7 @@ namespace Frågesport
                 gbx.Text = teams[i].TeamName;
                 gbx.Name = "gbxTeam" + (i + 1);
                 gbx.Location = new Point((gbx.Width) * i + 10, 0);
-                gbx.Font = new Font("Stencil", 10);
+                gbx.Font = new Font("Stencil", 20);
 
                 scoreGroupBoxes[i] = gbx;
                 this.Controls[0].Controls.Add(gbx);
@@ -135,8 +150,8 @@ namespace Frågesport
                 Label lbl = new Label();
                 lbl.Name = "lblTeamScore" + (i + 1);
                 lbl.Width = gbx.Width - 4;
-                lbl.Height = gbx.Height - 16;
-                lbl.Location = new Point(2, 16);
+                lbl.Height = gbx.Height - 32;
+                lbl.Location = new Point(2, 32);
                 lbl.Text = teams[i].Score.ToString() + " Poäng";
                 lbl.BackColor = Color.Khaki;
                 lbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -156,7 +171,7 @@ namespace Frågesport
                     if (cardLabels[i, j].Name == sender.Name)
                     {
                         Console.WriteLine("The card for point " + (i + 1) + " and category " + (j + 1) + " was hit.");
-                        var popup = new QuestionPopup(quiz.category[j].question[i].text, quiz.category[j].question[i].answer, i + 1, teams);
+                        QuestionPopup popup = new QuestionPopup(quiz.category[j].question[i].text, quiz.category[j].question[i].answer, i + 1, teams, quiz.category[j].question[i].type, rootDirectory, quiz.category[j].question[i].mediaFile);
                         popup.ShowDialog();
                         sender.BackColor = Color.DarkOrange;
                         sender.TextAlign = ContentAlignment.MiddleCenter;

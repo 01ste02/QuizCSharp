@@ -30,6 +30,7 @@
         {
             this.lblQuestion = new System.Windows.Forms.Label();
             this.lblAnswer = new System.Windows.Forms.Label();
+            this.lblMedia = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblQuestion
@@ -37,6 +38,7 @@
             this.lblQuestion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblQuestion.Font = new System.Drawing.Font("Palatino Linotype", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQuestion.Location = new System.Drawing.Point(0, 0);
             this.lblQuestion.Name = "lblQuestion";
             this.lblQuestion.Size = new System.Drawing.Size(800, 285);
@@ -59,6 +61,18 @@
             this.lblAnswer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblAnswer.Click += new System.EventHandler(this.lblAnswer_Click);
             // 
+            // lblMedia
+            // 
+            this.lblMedia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMedia.Location = new System.Drawing.Point(0, 98);
+            this.lblMedia.Name = "lblMedia";
+            this.lblMedia.Size = new System.Drawing.Size(800, 187);
+            this.lblMedia.TabIndex = 2;
+            this.lblMedia.Visible = false;
+            this.lblMedia.Click += new System.EventHandler(this.lblMedia_Click);
+            // 
             // QuestionPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -67,6 +81,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblAnswer);
             this.Controls.Add(this.lblQuestion);
+            this.Controls.Add(this.lblMedia);
             this.MinimizeBox = false;
             this.Name = "QuestionPopup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -82,5 +97,6 @@
 
         private System.Windows.Forms.Label lblQuestion;
         private System.Windows.Forms.Label lblAnswer;
+        private System.Windows.Forms.Label lblMedia;
     }
 }

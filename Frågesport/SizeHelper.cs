@@ -73,7 +73,7 @@ namespace Frågesport
         public void SizeScoreLabels (int formWidth, int parentHeight, int count, Label lbl)
         {
             lbl.Width = formWidth - 4;
-            lbl.Height = parentHeight - 16;
+            lbl.Height = parentHeight - 32;
         }
     }
 }
