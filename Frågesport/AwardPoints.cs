@@ -178,8 +178,8 @@ namespace Frågesport
                 this.Controls[1].Controls[i].Controls.Add(btn5);
                 this.Controls[1].Controls[i].Controls.Add(btn6);
 
-                int fontSizeLbl = fontHelper.FontSizeString(lbl.Text, "Palatino Linotype", lbl.Width, lbl.Height, this.CreateGraphics());
-                int fontSizeBtn = fontHelper.FontSizeString(pointButtons[i, 0].Text, "Palatino Linotype", pointButtons[i, 0].Width, pointButtons[i, 0].Height, this.CreateGraphics()) / 2;
+                int fontSizeLbl = fontHelper.FontSizeString(lbl.Text, "Palatino Linotype", lbl.Width / 2, lbl.Height, this.CreateGraphics());
+                int fontSizeBtn = fontHelper.FontSizeString(pointButtons[i, 0].Text, "Palatino Linotype", pointButtons[i, 0].Width / 2, pointButtons[i, 0].Height, this.CreateGraphics()) / 2;
 
                 lbl.Font = new Font("Palatino Linotype", fontSizeLbl);
                 pointButtons[i, 0].Font = new Font("Palatino Linotype", fontSizeBtn);

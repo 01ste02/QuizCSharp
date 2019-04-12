@@ -114,7 +114,7 @@ namespace Frågesport
                 fontHelper.SetFont(fontName, fontSize2, scoreLabels[i]);
             }
 
-            int fontSize3 = fontHelper.FontSizeString("AAAAAAAAAAAAAAAAAAA", fontName, teamScoreLabels[0].Width / 2, (int)(teamScoreLabels[0].Height / 3), this.CreateGraphics());
+            int fontSize3 = fontHelper.FontSizeString("AAAAAAAAAAAAAAAAAAA", fontName, teamScoreLabels[0].Width, (int)(teamScoreLabels[0].Height), this.CreateGraphics());
             for (int i = 0; i < teamScoreLabels.Length; i++)
             {
                 fontHelper.SetFont(fontName, fontSize3, teamScoreLabels[i]);

@@ -70,7 +70,7 @@ namespace Frågesport
             lblQuestion.Font = new Font(fontName, fontSize1);
             lblQuestion.TextAlign = ContentAlignment.MiddleCenter;
 
-            int fontSize2 = fontHelper.FontSizeString(lblAnswer.Text, fontName, lblAnswer.Width, lblAnswer.Height, this.CreateGraphics());
+            int fontSize2 = fontHelper.FontSizeString(lblAnswer.Text, fontName, (int)(lblAnswer.Width / 2), lblAnswer.Height, this.CreateGraphics());
             lblAnswer.Font = new Font(fontName, fontSize2);
         }
 
@@ -90,10 +90,10 @@ namespace Frågesport
                     lblQuestion.Height = (int)(0.2 * this.Height);
                     lblQuestion.Location = new Point(0, 0);
                     lblAnswer.Visible = true;
-                    lblMedia.Height = (int)(0.6 * this.Height);
+                    lblMedia.Height = (int)(0.5 * this.Height);
                     lblMedia.Location = new Point(0, lblQuestion.Height);
                     lblAnswer.Location = new Point(0, lblQuestion.Height + lblMedia.Height);
-                    lblAnswer.Height = (int)(0.2 * this.Height);
+                    lblAnswer.Height = (int)(0.3 * this.Height);
                 }
             }
             else if (clickIndex > 1)
@@ -123,9 +123,9 @@ namespace Frågesport
                 {
                     lblQuestion.Height = (int)(0.2 * this.Height);
                     lblAnswer.Visible = true;
-                    lblMedia.Height = (int)(0.6 * this.Height);
+                    lblMedia.Height = (int)(0.5 * this.Height);
                     lblAnswer.Location = new Point(0, lblQuestion.Height + lblMedia.Height);
-                    lblAnswer.Height = (int)(0.2 * this.Height);
+                    lblAnswer.Height = (int)(0.3 * this.Height);
                 }
             }
             else if (clickIndex > 1)
@@ -156,10 +156,10 @@ namespace Frågesport
                 {
                     lblQuestion.Height = (int)(0.2 * this.Height);
                     lblAnswer.Visible = true;
-                    lblMedia.Height = (int)(0.6 * this.Height);
+                    lblMedia.Height = (int)(0.5 * this.Height);
                     lblMedia.Location = new Point(0, lblQuestion.Height);
                     lblAnswer.Location = new Point(0, lblQuestion.Height + lblMedia.Height);
-                    lblAnswer.Height = (int)(0.2 * this.Height);
+                    lblAnswer.Height = (int)(0.3 * this.Height);
                     lblAnswer.Width = this.Width;
                     lblMedia.Width = this.Width;
                 }
@@ -170,7 +170,7 @@ namespace Frågesport
                 lblQuestion.Font = new Font(fontName, fontSize1);
                 lblQuestion.TextAlign = ContentAlignment.MiddleCenter;
 
-                int fontSize2 = fontHelper.FontSizeString(lblAnswer.Text, fontName, lblAnswer.Width, lblAnswer.Height, this.CreateGraphics());
+                int fontSize2 = fontHelper.FontSizeString(lblAnswer.Text, fontName, (int)(lblAnswer.Width / 2), lblAnswer.Height, this.CreateGraphics());
                 lblAnswer.Font = new Font(fontName, fontSize2);
             }
             else
@@ -185,7 +185,7 @@ namespace Frågesport
                 lblQuestion.Font = new Font(fontName, fontSize1);
                 lblQuestion.TextAlign = ContentAlignment.MiddleCenter;
 
-                int fontSize2 = fontHelper.FontSizeString(lblAnswer.Text, fontName, lblAnswer.Width, lblAnswer.Height, this.CreateGraphics());
+                int fontSize2 = fontHelper.FontSizeString(lblAnswer.Text, fontName, (int)(lblAnswer.Width / 2), lblAnswer.Height, this.CreateGraphics());
                 lblAnswer.Font = new Font(fontName, fontSize2);
             }
         }
@@ -205,9 +205,9 @@ namespace Frågesport
                 {
                     lblQuestion.Height = (int)(0.2 * this.Height);
                     lblAnswer.Visible = true;
-                    lblMedia.Height = (int)(0.6 * this.Height);
+                    lblMedia.Height = (int)(0.5 * this.Height);
                     lblAnswer.Location = new Point(0, lblQuestion.Height + lblMedia.Height);
-                    lblAnswer.Height = (int)(0.2 * this.Height);
+                    lblAnswer.Height = (int)(0.3 * this.Height);
                 }
             }
             else if (clickIndex > 1)

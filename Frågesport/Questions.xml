@@ -112,7 +112,7 @@
     </question>
     <question point="2">
       <text>Vilken av följande mattesymboler är inte ett av Ed Sheerans albumnamn? +, -, *, ÷</text>
-      <answer>÷</answer>
+      <answer>-</answer>
       <type>Text</type>
       <mediaFile></mediaFile>
     </question>
@@ -145,7 +145,7 @@
       <mediaFile>albert.jpg</mediaFile>
     </question>
     <question point="2">
-      <text>Vilken Amerikansk president blev mördad av en okänd människa på en Onsdag?</text>
+      <text>Vilken Amerikansk president blev mördad av en (eventuellt) okänd människa på en onsdag?</text>
       <answer>John F. Kennedy</answer>
       <type>Text</type>
       <mediaFile></mediaFile>
