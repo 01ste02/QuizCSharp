@@ -14,7 +14,7 @@ namespace Frågesport
     public partial class Menu : Form
     {
         private int numTeams = 0;
-        List<TextBox> teamNames = new List<TextBox>();
+        private List<TextBox> teamNames = new List<TextBox>();
         private int xPos = 10;
         private int yPos = 40;
         private int tbxWidth;
@@ -25,7 +25,7 @@ namespace Frågesport
             InitializeComponent();
         }
 
-        private void btnAdd_Click (object sender, EventArgs e)
+        private void BtnAdd_Click (object sender, EventArgs e)
         {
             if (numTeams < 9)
             {
@@ -70,7 +70,7 @@ namespace Frågesport
             }
         }
 
-        private void btnRemove_Click (object sender, EventArgs e)
+        private void BtnRemove_Click (object sender, EventArgs e)
         {
             if (numTeams > 1)
             {
@@ -82,7 +82,7 @@ namespace Frågesport
             }
         }
 
-        private void btnStart_Click (object sender, EventArgs e)
+        private void BtnStart_Click (object sender, EventArgs e)
         {
             bool allSet = true;
             for (int i = 0; i < teamNames.Count; i++)

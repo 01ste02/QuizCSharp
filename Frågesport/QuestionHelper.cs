@@ -13,6 +13,7 @@ namespace Frågesport
 
     // NOTE: Generated code may require at least .NET Framework 4.5 or .NET Core/Standard 2.0.
     /// <remarks/>
+    #pragma warning disable IDE1006 // Naming Styles
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "test")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "test", IsNullable = false)]
     public partial class quiz
@@ -152,7 +153,6 @@ namespace Frågesport
                 this.pointField = value;
             }
         }
+        #pragma warning restore IDE1006 // Naming Styles
     }
-
-
 }

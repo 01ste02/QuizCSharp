@@ -54,7 +54,7 @@
             this.btnDone.TabIndex = 1;
             this.btnDone.Text = "Färdig";
             this.btnDone.UseVisualStyleBackColor = true;
-            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
+            this.btnDone.Click += new System.EventHandler(this.BtnDone_Click);
             // 
             // AwardPoints
             // 

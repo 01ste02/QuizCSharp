@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using WMPLib;
 
 namespace Frågesport
 {
@@ -38,9 +39,61 @@ namespace Frågesport
         private void QuestionPopup_Load (object sender, EventArgs e)
         {
             Invalidate();
+            string fontName = "Palatino Linotype";
+
             if (questionType == "Text")
             {
                 lblQuestion.Height = this.Height;
+            }
+            else if (questionType == "Video")
+            {
+                lblQuestion.Height = (int)(this.Height * 0.2);
+                mediaPlayer1.Visible = true;
+                mediaPlayer1.Width = this.Width;
+                mediaPlayer1.Height = (int)(this.Height * 0.8);
+                mediaPlayer1.Location = new Point(0, lblQuestion.Height);
+
+                try
+                {
+                    mediaPlayer1.URL = (Path.Combine(filePath, fileName));
+                }
+                catch
+                {
+                    lblQuestion.Height = (int)(this.Height * 0.2);
+                    lblMedia.Height = (int)(this.Height * 0.8);
+                    lblMedia.Visible = true;
+                    lblMedia.Text = "Det skedde ett fel då filen skulle laddas";
+                    int fontSize3 = fontHelper.FontSizeString(lblMedia.Text, fontName, (int)(lblMedia.Width / 2), lblMedia.Height, this.CreateGraphics());
+                    lblMedia.Font = new Font(fontName, fontSize3);
+                }
+
+                mediaPlayer1.uiMode = "none";
+                mediaPlayer1.stretchToFit = true;
+            }
+            else if (questionType == "Audio")
+            {
+                lblQuestion.Height = (int)(this.Height * 0.2);
+                mediaPlayer1.Visible = true;
+                mediaPlayer1.Width = this.Width;
+                mediaPlayer1.Height = (int)(this.Height * 0.8);
+                mediaPlayer1.Location = new Point(0, lblQuestion.Height);
+
+                try
+                {
+                    mediaPlayer1.URL = (Path.Combine(filePath, fileName));
+                }
+                catch
+                {
+                    lblQuestion.Height = (int)(this.Height * 0.2);
+                    lblMedia.Height = (int)(this.Height * 0.8);
+                    lblMedia.Visible = true;
+                    lblMedia.Text = "Det skedde ett fel då filen skulle laddas";
+                    int fontSize3 = fontHelper.FontSizeString(lblMedia.Text, fontName, (int)(lblMedia.Width / 2), lblMedia.Height, this.CreateGraphics());
+                    lblMedia.Font = new Font(fontName, fontSize3);
+                }
+
+                mediaPlayer1.uiMode = "none";
+                mediaPlayer1.stretchToFit = true;
             }
             else
             {
@@ -53,7 +106,12 @@ namespace Frågesport
                 }
                 catch
                 {
-
+                    lblQuestion.Height = (int)(this.Height * 0.2);
+                    lblMedia.Height = (int)(this.Height * 0.8);
+                    lblMedia.Visible = true;
+                    lblMedia.Text = "Det skedde ett fel då filen skulle laddas";
+                    int fontSize3 = fontHelper.FontSizeString(lblMedia.Text, fontName, (int)(lblMedia.Width / 2), lblMedia.Height, this.CreateGraphics());
+                    lblMedia.Font = new Font(fontName, fontSize3);
                 }
 
                 lblMedia.ImageAlign = ContentAlignment.TopCenter;
@@ -64,8 +122,6 @@ namespace Frågesport
 
             lblAnswer.Visible = false;
 
-            string fontName = "Palatino Linotype";
-
             int fontSize1 = fontHelper.FontSizeString(lblQuestion.Text, fontName, lblQuestion.Width, lblQuestion.Height, this.CreateGraphics());
             lblQuestion.Font = new Font(fontName, fontSize1);
             lblQuestion.TextAlign = ContentAlignment.MiddleCenter;
@@ -74,41 +130,17 @@ namespace Frågesport
             lblAnswer.Font = new Font(fontName, fontSize2);
         }
 
-        private void lblQuestion_Click (object sender, EventArgs e)
+        private void LblQuestion_Click (object sender, EventArgs e)
         {
-            if (clickIndex == 0)
-            {
-                if (questionType == "Text")
-                {
-                    lblQuestion.Height = (int)(0.6 * this.Height);
-                    lblAnswer.Visible = true;
-                    lblAnswer.Location = new Point(0, lblQuestion.Height);
-                    lblAnswer.Height = (int)(0.4 * this.Height);
-                }
-                else
-                {
-                    lblQuestion.Height = (int)(0.2 * this.Height);
-                    lblQuestion.Location = new Point(0, 0);
-                    lblAnswer.Visible = true;
-                    lblMedia.Height = (int)(0.5 * this.Height);
-                    lblMedia.Location = new Point(0, lblQuestion.Height);
-                    lblAnswer.Location = new Point(0, lblQuestion.Height + lblMedia.Height);
-                    lblAnswer.Height = (int)(0.3 * this.Height);
-                }
-            }
-            else if (clickIndex > 1)
-            {
-                this.Close();
-            }
-            else if (clickIndex == 1)
-            {
-                var popup = new AwardPoints(score, teams.Length, teams);
-                popup.ShowDialog();
-            }
-            clickIndex++;
+            Clicked();
         }
 
-        private void lblAnswer_Click (object sender, EventArgs e)
+        private void LblAnswer_Click (object sender, EventArgs e)
+        {
+            Clicked();
+        }
+
+        private void Clicked()
         {
             if (clickIndex == 0)
             {
@@ -118,6 +150,34 @@ namespace Frågesport
                     lblAnswer.Visible = true;
                     lblAnswer.Location = new Point(0, lblQuestion.Height);
                     lblAnswer.Height = (int)(0.4 * this.Height);
+                }
+                else if (questionType == "Video")
+                {
+                    lblQuestion.Height = (int)(this.Height * 0.2);
+                    mediaPlayer1.Visible = true;
+                    mediaPlayer1.Width = this.Width;
+                    mediaPlayer1.Height = (int)(this.Height * 0.5);
+                    mediaPlayer1.Location = new Point(0, lblQuestion.Height);
+                    mediaPlayer1.uiMode = "none";
+                    mediaPlayer1.stretchToFit = true;
+                    lblAnswer.Location = new Point(0, lblQuestion.Height + mediaPlayer1.Height);
+                    lblAnswer.Height = (int)(0.3 * this.Height);
+                    lblAnswer.Width = this.Width;
+                    lblAnswer.Visible = true;
+                }
+                else if (questionType == "Audio")
+                {
+                    lblQuestion.Height = (int)(this.Height * 0.2);
+                    mediaPlayer1.Visible = true;
+                    mediaPlayer1.Width = this.Width;
+                    mediaPlayer1.Height = (int)(this.Height * 0.5);
+                    mediaPlayer1.Location = new Point(0, lblQuestion.Height);
+                    mediaPlayer1.uiMode = "none";
+                    mediaPlayer1.stretchToFit = true;
+                    lblAnswer.Location = new Point(0, lblQuestion.Height + mediaPlayer1.Height);
+                    lblAnswer.Height = (int)(0.3 * this.Height);
+                    lblAnswer.Width = this.Width;
+                    lblAnswer.Visible = true;
                 }
                 else
                 {
@@ -130,11 +190,13 @@ namespace Frågesport
             }
             else if (clickIndex > 1)
             {
+                mediaPlayer1.Ctlcontrols.pause();
                 this.Close();
             }
             else if (clickIndex == 1)
             {
-                var popup = new AwardPoints(score, teams.Length, teams);
+                AwardPoints popup = new AwardPoints(score, teams.Length, teams);
+                mediaPlayer1.Ctlcontrols.pause();
                 popup.ShowDialog();
             }
             clickIndex++;
@@ -151,6 +213,34 @@ namespace Frågesport
                     lblAnswer.Location = new Point(0, lblQuestion.Height);
                     lblAnswer.Height = (int)(0.4 * this.Height);
                     lblAnswer.Width = this.Width;
+                }
+                else if (questionType == "Video")
+                {
+                    lblQuestion.Height = (int)(this.Height * 0.2);
+                    mediaPlayer1.Visible = true;
+                    mediaPlayer1.Width = this.Width;
+                    mediaPlayer1.Height = (int)(this.Height * 0.5);
+                    mediaPlayer1.Location = new Point(0, lblQuestion.Height);
+                    mediaPlayer1.uiMode = "none";
+                    mediaPlayer1.stretchToFit = true;
+                    lblAnswer.Location = new Point(0, lblQuestion.Height + mediaPlayer1.Height);
+                    lblAnswer.Height = (int)(0.3 * this.Height);
+                    lblAnswer.Width = this.Width;
+                    lblAnswer.Visible = true;
+                }
+                else if (questionType == "Audio")
+                {
+                    lblQuestion.Height = (int)(this.Height * 0.2);
+                    mediaPlayer1.Visible = true;
+                    mediaPlayer1.Width = this.Width;
+                    mediaPlayer1.Height = (int)(this.Height * 0.5);
+                    mediaPlayer1.Location = new Point(0, lblQuestion.Height);
+                    mediaPlayer1.uiMode = "none";
+                    mediaPlayer1.stretchToFit = true;
+                    lblAnswer.Location = new Point(0, lblQuestion.Height + mediaPlayer1.Height);
+                    lblAnswer.Height = (int)(0.3 * this.Height);
+                    lblAnswer.Width = this.Width;
+                    lblAnswer.Visible = true;
                 }
                 else
                 {
@@ -179,6 +269,11 @@ namespace Frågesport
                 lblQuestion.Width = this.Width;
                 lblAnswer.Width = this.Width;
 
+                lblQuestion.Height = (int)(this.Height * 0.2);
+                mediaPlayer1.Width = this.Width;
+                mediaPlayer1.Height = (int)(this.Height * 0.7);
+                mediaPlayer1.Location = new Point(0, lblQuestion.Height);
+
                 string fontName = "Palatino Linotype";
 
                 int fontSize1 = fontHelper.FontSizeString(lblQuestion.Text, fontName, lblQuestion.Width, lblQuestion.Height, this.CreateGraphics());
@@ -190,36 +285,24 @@ namespace Frågesport
             }
         }
 
-        private void lblMedia_Click (object sender, EventArgs e)
+        private void LblMedia_Click (object sender, EventArgs e)
         {
-            if (clickIndex == 0)
+            if (lblMedia.Visible == true)
             {
-                if (questionType == "Text")
-                {
-                    lblQuestion.Height = (int)(0.6 * this.Height);
-                    lblAnswer.Visible = true;
-                    lblAnswer.Location = new Point(0, lblQuestion.Height);
-                    lblAnswer.Height = (int)(0.4 * this.Height);
-                }
-                else
-                {
-                    lblQuestion.Height = (int)(0.2 * this.Height);
-                    lblAnswer.Visible = true;
-                    lblMedia.Height = (int)(0.5 * this.Height);
-                    lblAnswer.Location = new Point(0, lblQuestion.Height + lblMedia.Height);
-                    lblAnswer.Height = (int)(0.3 * this.Height);
-                }
+                Clicked();
             }
-            else if (clickIndex > 1)
+        }
+
+        private void MediaPlayer1_MouseUpEvent (object sender, AxWMPLib._WMPOCXEvents_MouseUpEvent e)
+        {
+            if (mediaPlayer1.playState != WMPPlayState.wmppsPaused)
             {
-                this.Close();
+                mediaPlayer1.Ctlcontrols.pause();
             }
-            else if (clickIndex == 1)
+            else
             {
-                var popup = new AwardPoints(score, teams.Length, teams);
-                popup.ShowDialog();
+                mediaPlayer1.Ctlcontrols.play();
             }
-            clickIndex++;
         }
     }
 }

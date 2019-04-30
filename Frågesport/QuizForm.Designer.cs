@@ -460,6 +460,7 @@
             this.Controls.Add(this.gbxQuestions);
             this.Name = "QuizForm";
             this.Text = "Frågor";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.QuizForm_FormClosed);
             this.Shown += new System.EventHandler(this.QuizForm_Shown);
             this.ResizeEnd += new System.EventHandler(this.QuizForm_ResizeEnd);

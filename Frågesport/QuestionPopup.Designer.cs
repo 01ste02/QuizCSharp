@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent ()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuestionPopup));
             this.lblQuestion = new System.Windows.Forms.Label();
             this.lblAnswer = new System.Windows.Forms.Label();
             this.lblMedia = new System.Windows.Forms.Label();
+            this.mediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
+            ((System.ComponentModel.ISupportInitialize)(this.mediaPlayer1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblQuestion
@@ -45,7 +48,7 @@
             this.lblQuestion.TabIndex = 0;
             this.lblQuestion.Text = "\r\na";
             this.lblQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblQuestion.Click += new System.EventHandler(this.lblQuestion_Click);
+            this.lblQuestion.Click += new System.EventHandler(this.LblQuestion_Click);
             // 
             // lblAnswer
             // 
@@ -59,7 +62,7 @@
             this.lblAnswer.TabIndex = 1;
             this.lblAnswer.Text = "label1";
             this.lblAnswer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblAnswer.Click += new System.EventHandler(this.lblAnswer_Click);
+            this.lblAnswer.Click += new System.EventHandler(this.LblAnswer_Click);
             // 
             // lblMedia
             // 
@@ -71,7 +74,21 @@
             this.lblMedia.Size = new System.Drawing.Size(800, 187);
             this.lblMedia.TabIndex = 2;
             this.lblMedia.Visible = false;
-            this.lblMedia.Click += new System.EventHandler(this.lblMedia_Click);
+            this.lblMedia.Click += new System.EventHandler(this.LblMedia_Click);
+            // 
+            // mediaPlayer1
+            // 
+            this.mediaPlayer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediaPlayer1.Enabled = true;
+            this.mediaPlayer1.Location = new System.Drawing.Point(3, 58);
+            this.mediaPlayer1.Name = "mediaPlayer1";
+            this.mediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("mediaPlayer1.OcxState")));
+            this.mediaPlayer1.Size = new System.Drawing.Size(797, 346);
+            this.mediaPlayer1.TabIndex = 3;
+            this.mediaPlayer1.Visible = false;
+            this.mediaPlayer1.MouseUpEvent += new AxWMPLib._WMPOCXEvents_MouseUpEventHandler(this.MediaPlayer1_MouseUpEvent);
             // 
             // QuestionPopup
             // 
@@ -79,6 +96,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LemonChiffon;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.mediaPlayer1);
             this.Controls.Add(this.lblAnswer);
             this.Controls.Add(this.lblQuestion);
             this.Controls.Add(this.lblMedia);
@@ -89,6 +107,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.QuestionPopup_Load);
             this.ResizeEnd += new System.EventHandler(this.QuestionPopup_ResizeEnd);
+            ((System.ComponentModel.ISupportInitialize)(this.mediaPlayer1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -98,5 +117,6 @@
         private System.Windows.Forms.Label lblQuestion;
         private System.Windows.Forms.Label lblAnswer;
         private System.Windows.Forms.Label lblMedia;
+        private AxWMPLib.AxWindowsMediaPlayer mediaPlayer1;
     }
 }

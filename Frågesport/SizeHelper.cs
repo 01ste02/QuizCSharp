@@ -10,13 +10,10 @@ namespace Frågesport
 {
     class SizeHelper
     {
-        public int horizontalHeight;
-        public int horizontalWidth;
-        public int verticalHeight;
-        public int verticalWidth;
-
-        public int scoreHeight;
-        public int scoreWidth;
+        private int horizontalHeight;
+        private int horizontalWidth;
+        private int verticalHeight;
+        private int verticalWidth;
 
         public SizeHelper()
         {
@@ -66,7 +63,7 @@ namespace Frågesport
 
         public void SizeScoreGbx (int formWidth, int count, int teamNum, GroupBox gbx)
         {
-            gbx.Width = (formWidth - 30) / count;
+            gbx.Width = (formWidth - 10 * count) / count;
             gbx.Location = new Point((gbx.Width + 10) * teamNum + 10, 0);
         }
 
@@ -74,6 +71,38 @@ namespace Frågesport
         {
             lbl.Width = formWidth - 4;
             lbl.Height = parentHeight - 32;
+        }
+
+        public int HorizontalHeight
+        {
+            get
+            {
+                return horizontalHeight;
+            }
+        }
+
+        public int HorizontalWidth
+        {
+            get
+            {
+                return horizontalWidth;
+            }
+        }
+
+        public int VerticalHeight
+        {
+            get
+            {
+                return verticalHeight;
+            }
+        }
+
+        public int VerticalWidth
+        {
+            get
+            {
+                return verticalWidth;
+            }
         }
     }
 }

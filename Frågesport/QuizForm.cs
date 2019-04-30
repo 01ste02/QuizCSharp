@@ -18,15 +18,16 @@ namespace Frågesport
         private Label[] categoryLabels;
         private Label[] scoreLabels;
         private Label[,] cardLabels;
+        private bool[,] cardOpened;
 
         private SizeHelper sizeHelper = new SizeHelper();
         private FontHelper fontHelper = new FontHelper();
 
         private quiz quiz;
 
-        public Team[] teams;
-        public GroupBox[] scoreGroupBoxes;
-        public Label[] teamScoreLabels;
+        private Team[] teams;
+        private GroupBox[] scoreGroupBoxes;
+        private Label[] teamScoreLabels;
 
         private string rootDirectory;
         private string questionFile;
@@ -39,7 +40,7 @@ namespace Frågesport
             InitializeComponent();
         }
 
-        public void Startup()
+        public void Startup ()
         {
             quiz = DeserializeQuiz(Path.Combine(rootDirectory, questionFile));
 
@@ -97,39 +98,42 @@ namespace Frågesport
             for (int i = 0; i < cardLabels.GetLength(0); i++)
             {
                 for (int j = 0; j < cardLabels.GetLength(1); j++)
-                sizeHelper.SizeCards(i, j, cardLabels[i, j]);
+                {
+                    sizeHelper.SizeCards(i, j, cardLabels[i, j]);
+                }
             }
 
-            int fontSize = fontHelper.FontSize(categoryLabels, fontName, sizeHelper.horizontalWidth - 20, sizeHelper.horizontalHeight, this.CreateGraphics());
+            int fontSize = fontHelper.FontSize(categoryLabels, fontName, sizeHelper.HorizontalWidth - 20, sizeHelper.HorizontalHeight, this.CreateGraphics());
 
             for (int i = 0; i < categoryLabels.Length; i++)
             {
                 fontHelper.SetFont(fontName, fontSize, categoryLabels[i]);
             }
 
-            int fontSize2 = fontHelper.FontSizeString("25", fontName, sizeHelper.verticalWidth, sizeHelper.verticalHeight, this.CreateGraphics());
+            int fontSize2 = fontHelper.FontSizeString("25", fontName, sizeHelper.VerticalWidth, sizeHelper.VerticalHeight, this.CreateGraphics());
 
             for (int i = 0; i < scoreLabels.Length; i++)
             {
                 fontHelper.SetFont(fontName, fontSize2, scoreLabels[i]);
             }
 
-            int fontSize3 = fontHelper.FontSizeString("AAAAAAAAAAAAAAAAAAA", fontName, teamScoreLabels[0].Width, (int)(teamScoreLabels[0].Height), this.CreateGraphics());
+            string DummyString = "AAAAAAAAAAAAAAAA";
+            int fontSize3 = fontHelper.FontSizeString(DummyString, fontName, teamScoreLabels[0].Width, (int)(teamScoreLabels[0].Height), this.CreateGraphics());
             for (int i = 0; i < teamScoreLabels.Length; i++)
             {
                 fontHelper.SetFont(fontName, fontSize3, teamScoreLabels[i]);
             }
         }
 
-        public void PopulateFields()
+        public void PopulateFields ()
         {
-            for(int i = 0; i < categoryLabels.Length; i++)
+            for (int i = 0; i < categoryLabels.Length; i++)
             {
                 categoryLabels[i].Text = quiz.category[i].name;
             }
         }
 
-        public void PopulateTeams(Team[] teams)
+        public void PopulateTeams (Team[] teams)
         {
             scoreGroupBoxes = new GroupBox[teams.Length];
             teamScoreLabels = new Label[teams.Length];
@@ -168,9 +172,10 @@ namespace Frågesport
             {
                 for (int j = 0; j < cardLabels.GetLength(1); j++)
                 {
-                    if (cardLabels[i, j].Name == sender.Name)
+                    if (cardLabels[i, j].Name == sender.Name && !cardOpened[i, j])
                     {
-                        Console.WriteLine("The card for point " + (i + 1) + " and category " + (j + 1) + " was hit.");
+                        //Console.WriteLine("The card for point " + (i + 1) + " and category " + (j + 1) + " was hit.");
+                        cardOpened[i, j] = true;
                         QuestionPopup popup = new QuestionPopup(quiz.category[j].question[i].text, quiz.category[j].question[i].answer, i + 1, teams, quiz.category[j].question[i].type, rootDirectory, quiz.category[j].question[i].mediaFile);
                         popup.ShowDialog();
                         sender.BackColor = Color.DarkOrange;
@@ -240,11 +245,14 @@ namespace Frågesport
             cardLabels[4, 3] = lblPoint5Cat4;
             cardLabels[4, 4] = lblPoint5Cat5;
 
+            cardOpened = new bool[5, 5];
+
             for (int i = 0; i < cardLabels.GetLength(0); i++)
             {
                 for (int j = 0; j < cardLabels.GetLength(1); j++)
                 {
                     cardLabels[i, j].MouseUp += new System.Windows.Forms.MouseEventHandler(this.GbxQuestions_MouseUp);
+                    cardOpened[i, j] = false;
                 }
             }
 
@@ -264,6 +272,30 @@ namespace Frågesport
         private void QuizForm_FormClosed (object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        public Team[] Teams
+        {
+            get
+            {
+                return teams;
+            }
+        }
+
+        public GroupBox[] ScoreGroupBoxes
+        {
+            get
+            {
+                return scoreGroupBoxes;
+            }
+        }
+
+        public Label[] TeamScoreLabels
+        {
+            get
+            {
+                return teamScoreLabels;
+            }
         }
     }
 }

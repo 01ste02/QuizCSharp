@@ -42,10 +42,10 @@
             this.btnRemove.Location = new System.Drawing.Point(10, 87);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(35, 35);
-            this.btnRemove.TabIndex = 0;
+            this.btnRemove.TabIndex = 1;
             this.btnRemove.Text = "-";
             this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.btnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // btnStart
             // 
@@ -55,10 +55,10 @@
             this.btnStart.Location = new System.Drawing.Point(118, 87);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(85, 35);
-            this.btnStart.TabIndex = 1;
+            this.btnStart.TabIndex = 2;
             this.btnStart.Text = "Starta";
             this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.btnStart.Click += new System.EventHandler(this.BtnStart_Click);
             // 
             // btnAdd
             // 
@@ -68,10 +68,10 @@
             this.btnAdd.Location = new System.Drawing.Point(270, 87);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(35, 35);
-            this.btnAdd.TabIndex = 2;
+            this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // label1
             // 
