@@ -8,7 +8,8 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Frågesport</RootNamespace>
     <AssemblyName>Frågesport</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+    <TargetFrameworkVersion>7.0.113</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -26,6 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
